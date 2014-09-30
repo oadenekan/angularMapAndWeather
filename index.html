@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		
+		<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Map | Weather Forecast</title>
+        <link rel="stylesheet" type="text/css" href="css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="css/Amap.css" />
+        <link rel="stylesheet" type="text/css" href="css/responsive.css" />
+    	<link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+    	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-UVIqIRJeYCEIqUmUnB_iwLGv-gB_e2c&sensor=FALSE"></script>
+    	
+	</head>
+	<body ng-controller="myController">
+		<header>
+			<nav>
+				<ul id="daily_forecast">
+					<li><a href="#forecast">Daily Weather Forecast</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<div id="wrapper">
+			<h2>Current Weather Condition</h2>
+			<div id="googleMap" ng-init="locationFinder()"></div>
+			<div id="weather">
+				<ul>
+					<li> <img ng-src="{{IconUrl}}"></img> </li>
+					<li> {{TemperatureInCent}}&deg;C </li>
+					<li> Humidity: {{humidity}} </li>
+					<li> Pressure: {{pressure}} </li>
+					<li> Wind: {{wind}} </li>
+					<li> {{description}} </li>
+				</ul>
+			</div>
+
+			<div id="forecast" ng-repeat="(key, forecast) in forecasts">
+				<ul class="update">
+					<li>Date: {{forecast.dt_txt}}</li>
+					<li>Temperature: {{convertTemp(forecast.main.temp)}}&deg;C</li>
+					<li id='humidityLi'>Humidity: {{forecast.main.humidity}}</li>
+					<li>Pressure: {{convertPressure(forecast.main.pressure)}}</li>
+					<li id='windLi'>Wind: {{forecast.wind.speed}}</li>
+					<li>Description: {{forecast.weather[0].description}}</li>
+				</ul>
+			</div>
+
+			<button type="submit" id="js-geolocation" ng-click="locationFinder()">Return to current location</button>
+			<p id="copyright">&copy Olusola Adenekan</p>
+		</div>
+	
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+	</body>
+</html>
